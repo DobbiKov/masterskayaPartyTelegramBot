@@ -36,4 +36,7 @@ jobs:
       run: chmod 600 "$HOME/.ssh/key"
     # Deploy
     - name: Deploy
-      run: cd ./ && rsync -e "ssh -i $HOME/.ssh/key -o StrictHostKeyChecking=no" --archive --compress --delete . root@185.206.212.246:/root/MasterskayaPartyBot/ && npm i
+      run: cd ./ && rsync -e "ssh -i $HOME/.ssh/key -o StrictHostKeyChecking=no" --archive --compress --delete . root@185.206.212.246:/root/MasterskayaPartyBot/
+    # Install npm packages
+    - name: Install npm packages
+      run: rsync -e "ssh -i $HOME/.ssh/key -o StrictHostKeyChecking=no" cd root@185.206.212.246:/root/MasterskayaPartyBot/ npm install
