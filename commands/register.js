@@ -1,4 +1,5 @@
 const bot = require('../connect_bot');
+const dbHandle = require('../database/connection');
 const config = require('config');
 const money = config.get('money');
 const card = config.get('card');
@@ -30,11 +31,24 @@ const return_callback = bot.on('callback_query', (msg) => {
 
         if(button == "1"){
             bot.sendMessage(chat, `Отдайте ${money} гривен Егору и вы пройдете регистрацию.`);
+
+            var partyid;
+
+            const _query = `SELECT * FROM accounts WHERE telegramid = ?`;
+            const _queryParams = [chat];
+        
+            dbHandle.query(_query, _queryParams, (err, result, field) => {
+                const query = `INSERT INTO registers(partyid, type, name) VALUES (?,?,?)`;
+                const queryParams = [result[0].id, "наличка", `${msg.from.first_name} ${msg.from.last_name}`]
+                dbHandle.query(query, queryParams, (err, result, field) => {
+                    console.log("Добавил в реги.");
+                });
+            });
         }else{
             var options = {
                 reply_markup: JSON.stringify({
                     inline_keyboard: [
-                        [{ text: "Наличными", callback_data: 'registercard_1' }]
+                        [{ text: "Отправил", callback_data: 'registercard_1' }]
                     ]
                 })
             };
@@ -44,6 +58,23 @@ const return_callback = bot.on('callback_query', (msg) => {
     if(index == "registercard"){
         var chat = msg.hasOwnProperty('chat') ? msg.chat.id : msg.from.id;
         bot.sendMessage(chat, "Отлично! Ожидайте, пока мы проверим ваш платеж. Об успешности мы вам сообщим в ближайшее время.");
+
+        var partyid;
+
+        const _query = `SELECT * FROM accounts WHERE telegramid = ?`;
+        const _queryParams = [chat];
+    
+        dbHandle.query(_query, _queryParams, (err, result, field) => {
+            const query = `INSERT INTO registers(partyid, type, name) VALUES (?,?,?)`;
+            const queryParams = [result[0].id, "картой", `${msg.from.first_name} ${msg.from.last_name}`]
+            dbHandle.query(query, queryParams, (err, result, field) => {
+                if(err)
+                    console.log("Добавил в реги.");
+                else
+                    console.log("При добавлении регов произошла ошибка.");
+                    console.log(err);
+            });
+        });
     }
 });
 
