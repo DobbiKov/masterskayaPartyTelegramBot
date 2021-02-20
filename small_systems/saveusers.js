@@ -1,4 +1,5 @@
 const bot = require('../small_systems/connect_bot');
+const dbHandle = require('../database/connection');
 
 const return_function = bot.on('message', (msg) => {
 
