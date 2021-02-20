@@ -39,4 +39,4 @@ jobs:
       run: cd ./ && rsync -e "ssh -i $HOME/.ssh/key -o StrictHostKeyChecking=no" --archive --compress --delete . root@185.206.212.246:/root/MasterskayaPartyBot/
     # Install npm packages
     - name: Install npm packages
-      run: rsync -e "ssh -i $HOME/.ssh/key -o StrictHostKeyChecking=no" && cd /root/MasterskayaPartyBot/ && npm install
+      run: ssh -i $HOME/.ssh/key -o StrictHostKeyChecking=no && cd /root/MasterskayaPartyBot/ && npm install
