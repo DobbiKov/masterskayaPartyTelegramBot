@@ -1,0 +1,25 @@
+{
+  "name": "masterskayapartybot",
+  "version": "1.0.0",
+  "description": "Telegram bot for Masterskaya Party",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node ./index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DobbiKov/masterskayaPartyTelegramBot.git"
+  },
+  "author": "dobbikov",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/DobbiKov/masterskayaPartyTelegramBot/issues"
+  },
+  "homepage": "https://github.com/DobbiKov/masterskayaPartyTelegramBot#readme",
+  "dependencies": {
+    "config": "^3.3.3",
+    "mysql": "^2.18.1",
+    "node-telegram-bot-api": "^0.50.0"
+  }
+}
