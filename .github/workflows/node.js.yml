@@ -16,7 +16,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [10.x, 12.x, 14.x, 15.x]
+        node-version: [15.x]
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
     steps:
@@ -45,8 +45,8 @@ jobs:
           username: ${{ secrets.USER }}
           password: ${{ secrets.PASSWORD }}
           script: |
-            killall -s TERM MasterskayaPartyBot/index.js
-            cd /root/MasterskayaPartyBot/
-            npm install
             screen -x partybot
+            trap sig_handler 15
+            trap sig_handler 15
+            npm install
             npm run start
