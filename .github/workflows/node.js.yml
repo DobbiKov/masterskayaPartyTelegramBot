@@ -45,8 +45,5 @@ jobs:
           username: ${{ secrets.USER }}
           password: ${{ secrets.PASSWORD }}
           script: |
-            screen -x partybot
-            trap sig_handler 15
-            trap sig_handler 15
+            cd /root/MasterskayaPartyBot/
             npm install
-            npm run start
