@@ -37,3 +37,13 @@ jobs:
     # Deploy
     - name: Deploy
       run: cd ./ && rsync -e "ssh -i $HOME/.ssh/key -o StrictHostKeyChecking=no" --archive --compress --delete . root@185.206.212.246:/root/MasterskayaPartyBot/
+    # npm Install
+    - name: npm Install
+      uses: appleboy/ssh-action@v0.1.2
+      with:
+          host: ${{secrets.HOST}}
+          username: ${{ secrets.USER }}
+          password: ${{ secrets.PASSWORD }}
+          script: |
+            cd /root/MasterskayaPartyBot/
+            npm install
